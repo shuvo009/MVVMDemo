@@ -1,0 +1,55 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:ModelView="clr-namespace:MVVMDemo.ModelView;assembly=MVVMDemo.ModelView" xmlns:Model="clr-namespace:MVVMDemo.Model;assembly=MVVMDemo.Model" x:Name="userControl" x:Class="MVVM.View.EmployeeView" 
+             mc:Ignorable="d" Height="375" Width="534">
+	<UserControl.DataContext>
+		<ModelView:EmployeeViewModel/>
+	</UserControl.DataContext>
+    <Grid>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="44*"/>
+    		<RowDefinition Height="331*"/>
+    	</Grid.RowDefinitions>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="61*"/>
+    		<ColumnDefinition Width="117*"/>
+    	</Grid.ColumnDefinitions>
+    	<telerik:RadListBox x:Name="radListBox" Grid.RowSpan="2" ItemsSource="{Binding Employees}">
+    		<telerik:RadListBox.ItemTemplate>
+    			<DataTemplate>
+    				<StackPanel Orientation="Vertical">
+    					<TextBlock Text="{Binding Name}" Margin="0,5,0,0"/>
+						<TextBlock Text="{Binding ContractNumber}"/>
+					</StackPanel>
+				</DataTemplate>
+			</telerik:RadListBox.ItemTemplate>
+    	</telerik:RadListBox>
+    	<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="92.333,0,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" FontSize="29.333"/>
+    	<Grid x:Name="grid" Grid.Column="1" HorizontalAlignment="Left" Height="286" Grid.Row="1" VerticalAlignment="Top" Width="351" DataContext="{Binding SelectedItem, ElementName=radListBox}">
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="44*"/>
+    			<ColumnDefinition Width="73*"/>
+    		</Grid.ColumnDefinitions>
+    		<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6.9,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Name}"/>
+    		<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6.9,38,0,0" TextWrapping="Wrap" Text="{Binding Designation}" VerticalAlignment="Top" Width="120"/>
+    		<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6.9,66,0,0" TextWrapping="Wrap" Text="{Binding Address}" VerticalAlignment="Top" Width="120"/>
+    		<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="6.9,94,0,0" TextWrapping="Wrap" Text="{Binding ContractNumber}" VerticalAlignment="Top" Width="120"/>
+    		<telerik:RadDatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="6.9,122,0,0" VerticalAlignment="Top" Width="120" SelectedValue="{Binding JoinDate}"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,10,0,0" TextWrapping="Wrap" Text="Name :" VerticalAlignment="Top" FontSize="14.667"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,41.493,0,0" TextWrapping="Wrap" Text="Designation" VerticalAlignment="Top" FontSize="14.667"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,69.493,0,0" TextWrapping="Wrap" Text="Address" VerticalAlignment="Top" FontSize="14.667"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,97.493,0,0" TextWrapping="Wrap" Text="Contract Number" VerticalAlignment="Top" FontSize="14.667"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,124.493,0,0" TextWrapping="Wrap" Text="Join Date" VerticalAlignment="Top" FontSize="14.667"/>
+    		<telerik:RadComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="7.5,151.493,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding Departments, Mode=TwoWay}" ItemsSource="{Binding DataContext.Departments, ElementName=userControl}" DisplayMemberPath="Name"/>
+    		<TextBlock HorizontalAlignment="Right" Margin="0,151.493,0,0" TextWrapping="Wrap" Text="Department" VerticalAlignment="Top" FontSize="14.667"/>
+    	</Grid>
+    	<StackPanel HorizontalAlignment="Center" Margin="123.899,0,101.566,0" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1">
+    		<telerik:RadButton Content="{Binding SaveBtnContent}" Command="{Binding SaveCommand}" CommandParameter="{Binding DataContext, ElementName=grid}"/>
+    		<telerik:RadButton Content="{Binding UpdateBtnContent}" Margin="5,0,0,0" Command="{Binding UpdateCommand}" CommandParameter="{Binding DataContext, ElementName=grid}"/>
+    		<telerik:RadButton Content="{Binding DeleteBtnContent}" Margin="5,0,0,0" Command="{Binding DeletedCommand}" CommandParameter="{Binding DataContext, ElementName=grid}"/>
+    	</StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,31 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ModelView="clr-namespace:MVVMDemo.ModelView;assembly=MVVMDemo.ModelView" xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	mc:Ignorable="d"
+	x:Class="MVVM.View.SearchView"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+	<UserControl.DataContext>
+		<ModelView:EmployeeByDptViewModel/>
+	</UserControl.DataContext>
+
+	<Grid x:Name="LayoutRoot">
+		<TextBlock HorizontalAlignment="Left" Margin="256,0,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" FontSize="32"/>
+		<TextBlock HorizontalAlignment="Left" Margin="129.666,52.256,0,0" TextWrapping="Wrap" Text="Department :" VerticalAlignment="Top"/>
+		<telerik:RadComboBox x:Name="radComboBox" HorizontalAlignment="Left" Margin="209,47.563,0,0" VerticalAlignment="Top" Width="184" ItemsSource="{Binding Departments}" DisplayMemberPath="Name"/>
+		<telerik:RadButton Content="{Binding SearchBtnCont}" HorizontalAlignment="Left" Margin="407.666,47.563,0,0" VerticalAlignment="Top" Command="{Binding SearchCommand}" CommandParameter="{Binding SelectedItem, ElementName=radComboBox}"/>
+		<telerik:RadGridView HorizontalAlignment="Left" Margin="39,143,0,0" VerticalAlignment="Top" Height="218" Width="577" AutoGenerateColumns="False" IsReadOnly="True" ShowGroupPanel="False" ItemsSource="{Binding Employees}">
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="Name"/>
+				<telerik:GridViewDataColumn DataMemberBinding="{Binding Address}" Header="Address"/>
+				<telerik:GridViewDataColumn DataMemberBinding="{Binding ContractNumber}" Header="Contract Number"/>
+				<telerik:GridViewDataColumn DataMemberBinding="{Binding Designation}" Header="Designation"/>
+				<telerik:GridViewDataColumn DataMemberBinding="{Binding JoinDate}" Header="Join Date"/>
+			</telerik:RadGridView.Columns>
+		</telerik:RadGridView>
+	</Grid>
+</UserControl>
